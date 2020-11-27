@@ -11,7 +11,7 @@ api = Api(app)
 
 ### CURSOS ###
 
-@app.route('/api')
+@app.route('/')
 def home():
     return 'Hola'
 
