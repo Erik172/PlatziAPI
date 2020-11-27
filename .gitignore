@@ -1,0 +1,5 @@
+db/
+logs/
+ETL.py
+.env
+__pycache__/
