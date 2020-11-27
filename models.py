@@ -5,7 +5,7 @@ import json
 import os
 
 # Conectarse a la base de datos MongoDB de manera local
-#client = MongoClient(os.environ["DB_HOST"], int(os.environ["DB_PORT"]))
+#client = MongoClient('localhost', 27017)
 
 # Conectarse a la base de datos en producion
 client = MongoClient(os.environ["MONGO_DB"])
