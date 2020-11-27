@@ -2,7 +2,3 @@ flask
 flask-restful
 pymongo
 gunicorn
-itsdangerous
-Jinja2
-MarkupSafe
-Werkzeug
