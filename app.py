@@ -73,4 +73,4 @@ api.add_resource(CoursesId, '/api/courses/<int:id>')
 api.add_resource(Posts, '/api/posts')
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8088)
+    app.run()
