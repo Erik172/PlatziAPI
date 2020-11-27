@@ -1,4 +1,5 @@
 # Archivo Principal
+from os import environ
 from flask import Flask, request, render_template
 from flask_restful import Resource, Api, abort
 import models
@@ -73,4 +74,4 @@ api.add_resource(CoursesId, '/api/courses/<int:id>')
 api.add_resource(Posts, '/api/posts')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=False)
