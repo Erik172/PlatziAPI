@@ -1,19 +1,39 @@
-# Archivo Principal
-from os import environ
+# Codigo Principal
 from flask import Flask, request, render_template
 from flask_restful import Resource, Api, abort
 import models
-import datetime
-import time
+import random
+import ETL
+import os
 
 app = Flask(__name__)
 api = Api(app)
 
 ### CURSOS ###
 
+# Ruta Principal
 @app.route('/')
 def home():
-    return 'Hola'
+    cursoslist = [
+        models.searchCourseId(random.randint(0, models.totalCourses())),
+        models.searchCourseId(random.randint(0, models.totalCourses())),
+        models.searchCourseId(random.randint(0, models.totalCourses())),
+        models.searchCourseId(random.randint(0, models.totalCourses())),
+        # models.searchCourseId(random.randint(0, models.totalCourses())),
+        # models.searchCourseId(random.randint(0, models.totalCourses()))
+    ]
+    context = {
+        'cursos': cursoslist
+    }
+    return render_template('index.html', **context)
+
+@app.route('/api/courses/reload')
+def reloadCourses():
+    ETL.automaticSpiderPlatzi()
+
+@app.route('/api/courses/reload')
+def reloadPosts():
+    ETL.automaticSpiderBlog()
 
 class Courses(Resource):
     # Funcion para mostrar todos los cursos
@@ -65,13 +85,23 @@ class PostsId(Resource):
         post = models.searchPostId(id)
         return post
 
+### PROFILE ###
+
+class ProfileUsername(Resource):
+    def get(self, username: str):
+        request.get(f'https://platzi.com/@{username}')
+
 # Ruta para todos los cursos
 api.add_resource(Courses, '/api/courses')
 
 # Ruta para las funciones dentro de la clase CoursesId
 api.add_resource(CoursesId, '/api/courses/<int:id>')
 
+# Ruta para las funciones de posts
 api.add_resource(Posts, '/api/posts')
 
-# if __name__ == "__main__":
-#     app.run(debug=False)
+# Ruta para obtener los datos del usuario platzi
+api.add_resource(ProfileUsername, '/api/user/<string:username>')
+
+if __name__ == "__main__":
+    app.run(debug=True)

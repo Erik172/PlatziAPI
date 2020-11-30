@@ -40,6 +40,15 @@ def searchCourseId(id: int):
     data = courses.find_one({"_id": id})
     return data
 
+# Funcion para buscar un curso por su nombre
+def searchCourseName(name: str):
+    data = courses.find_one({'course': name})
+    if data:
+        return True
+
+    else:
+        return False
+
 # Funcion para modificar un curso por su _id
 def modifiedCourseId(id: int, data: dict):
     courses.find_and_modify({"_id": id}, data)
@@ -47,6 +56,9 @@ def modifiedCourseId(id: int, data: dict):
 # Funcion para eliminar un curso por su _id
 def deleteCourseId(id: int):
     courses.find_one_and_delete({"_id": id})
+
+def totalCourses():
+    return courses.count_documents({})
 
 ### Posts ###
 
@@ -66,3 +78,14 @@ def showPosts():
 # Funcion para buscar un post por su id
 def searchPostId(id: int):
     data = posts.find_one({'_id': id})
+
+# Funcion para buscar un post por su titulo
+def searchPostTitle(title: str):
+    data = posts.find_one({'name': title})
+    if data:
+        return True
+    else:
+        return False
+
+def totalPosts():
+    return posts.count_documents({}) 

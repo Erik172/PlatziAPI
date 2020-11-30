@@ -1,0 +1,8 @@
+cron:
+- description: "Buscar cursos nuevos cada semana"
+  url: /api/courses/reload
+  schedule: every monday 00:00
+
+- description: "Buscar un nuevos posts"
+  url: /api/posts/reload
+  schedule: every 20 minutes from 05:00 to 00:00

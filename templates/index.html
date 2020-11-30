@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Platzi API | Erik172</title>
+{% endblock %}
+
+
+{% block demoCourses %}
+    <div class="container">
+        <div class="row p-2">
+            {% for curso in cursos %}
+                <div class="col-1 mt-3">
+                    <img class="img-fluid" src="{{ curso.badge }}" alt="Badge">
+                </div>
+    
+                <div class="col-5 mt-4">
+                    <h4>{{ curso.course }}</h4>
+                    <p>{{ curso.description }}</p>
+                    <h5>Los Profesores</h5>
+                    <ul class="list-group list-group-flush">
+                        {% for teacher in curso.teacher %}
+                            <li class="list-group-item" >{{ teacher }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a class="btn btn-outline-success mb-3 btn-block" href="{{ curso.url }}">ir al curso</a>  
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
