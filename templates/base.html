@@ -8,8 +8,20 @@
 </head>
 <body>
     {% include "components/navbar.html" %}
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    <p class="m-0 p-0"><ion-icon name="alert-outline"></ion-icon> Este proyecto no es oficial</p>
+                </div>
+            </div>
+        </div>
+    </div>
     
     {% block demoCourses %}{% endblock %}
+
+    {% block demoPosts %}{% endblock %}
     
     {% include "components/footer.html" %}
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>

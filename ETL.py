@@ -1,13 +1,15 @@
 # Codigo para Extraer y Transformar los datos restornados por el web scraper
 from scrapinghub import ScrapinghubClient
+from scrapinghub import client
 import models
 import time
 import json
 import os
 
 # API KEY de ScrapingHub
-apiKey = os.environ["API_SCRAPY"]
-client = ScrapinghubClient(apiKey)
+# apiKey = os.environ["API_SCRAPY"]
+# client = ScrapinghubClient(apiKey)
+client = ScrapinghubClient('035d6ed44cd44aadbde8e4b794eaa6d1')
 
 project = client.get_project(484255)
 

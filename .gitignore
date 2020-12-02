@@ -1,5 +1,3 @@
-db/
-logs/
 .env
 __pycache__/
-app.yaml
+ETL.py

@@ -3,4 +3,4 @@ flask-restful
 pymongo
 gunicorn
 dnspython
-scrapinghub
+python-dotenv

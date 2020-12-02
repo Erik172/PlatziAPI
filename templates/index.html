@@ -7,13 +7,19 @@
 
 {% block demoCourses %}
     <div class="container">
+        <div class="row mt-4 mb-3">
+            <div class="col-12 text-center text-uppercase" id="demoCourses">
+                <small>Platzi API</small>
+                <h4>Demo de los cursos</h4>
+            </div>
+        </div>
         <div class="row p-2">
             {% for curso in cursos %}
-                <div class="col-1 mt-3">
+                <div class="col-12  col-lg-1 mt-3 text-center" >
                     <img class="img-fluid" src="{{ curso.badge }}" alt="Badge">
                 </div>
     
-                <div class="col-5 mt-4">
+                <div class="col-12  col-lg-5 mt-4">
                     <h4>{{ curso.course }}</h4>
                     <p>{{ curso.description }}</p>
                     <h5>Los Profesores</h5>
@@ -22,9 +28,37 @@
                             <li class="list-group-item" >{{ teacher }}</li>
                         {% endfor %}
                     </ul>
-                    <a class="btn btn-outline-success mb-3 btn-block" href="{{ curso.url }}">ir al curso</a>  
+                    <a class="btn btn-outline-success mb-3 btn-block" href="{{ curso.url }}" target="_blank">ir al curso</a>  
                 </div>
             {% endfor %}
         </div>
     </div>
 {% endblock %}
+
+{% block demoPosts %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center text-uppercase" id="demoPosts">
+                <small>Platzi API</small>
+                <h4>Demo posts</h4>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            {% for post in posts %}
+                <div class="col-12 col-md-4 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ post.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ post.author }} <span class="badge badge-primary">{{ post.date }}</span></h6>
+                        <p class="card-text">{{ post.description }}</p>
+                        <a href="{{ post.link }}" class="card-link" target="_blank">Leer mas...</a>
+                        <!-- <a href="#" class="card-link">Another link</a> -->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

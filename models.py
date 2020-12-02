@@ -1,14 +1,14 @@
 # Archivo para manejar todo lo de la base de datos
 from pymongo import MongoClient
+from dotenv import load_dotenv
 from bson import json_util
 import json
 import os
 
-# Conectarse a la base de datos MongoDB de manera local
-#client = MongoClient('localhost', 27017)
+load_dotenv()
 
 # Conectarse a la base de datos en producion
-client = MongoClient(os.environ["MONGO_DB"])
+client = MongoClient(os.getenv('MONGO_DB'))
 
 db = client.platzi # Base de datos nombrada como platzi
 courses = db.courses # Colecion de cursos
@@ -78,6 +78,7 @@ def showPosts():
 # Funcion para buscar un post por su id
 def searchPostId(id: int):
     data = posts.find_one({'_id': id})
+    return data
 
 # Funcion para buscar un post por su titulo
 def searchPostTitle(title: str):
