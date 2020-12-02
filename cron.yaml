@@ -1,8 +1,11 @@
 cron:
-# - description: "Buscar cursos nuevos cada semana"
-#   url: /api/courses/reload
-#   schedule: every monday 00:00
+- description: "Iniciar Scraper de platzi"
+  url: /api/v1/start-job-platzi
+  schedule: every monday 00:00
+  retry_parameters:
+    min_backoff_seconds: 10
+    max_doublings: 30
 
-# - description: "Buscar un nuevos posts"
-#   url: /api/posts/reload
-#   schedule: every 20 minutes
+- description: "Iniciar el filtrado y subida de datos"
+  url: /api/v1/filter-platzi-courses
+  schedule: every monday 06:00 

@@ -19,3 +19,8 @@ class PostsId(Resource):
     def get(self, id: int):
         post = models.searchPostId(id)
         return post
+
+class PostsFilter(Resource):
+    def get(self, key: str, value):
+        data = models.searchPostFilter(key, value)
+        return data

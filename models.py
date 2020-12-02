@@ -24,7 +24,6 @@ def showCourses():
     for r in data:
         result.append(r)
 
-    # Retorna un archivo json con todos los cursos
     return json.loads(json_util.dumps(result))
 
 # Funcion para agregar un curso
@@ -39,6 +38,14 @@ def deleteAllCourses():
 def searchCourseId(id: int):
     data = courses.find_one({"_id": id})
     return data
+
+def searchCourseFilter(key: str, value):
+    data = courses.find({key: value})
+    result = []
+    for r in data:
+        result.append(r)
+
+    return json.loads(json_util.dumps(result))
 
 # Funcion para buscar un curso por su nombre
 def searchCourseName(name: str):
@@ -79,6 +86,15 @@ def showPosts():
 def searchPostId(id: int):
     data = posts.find_one({'_id': id})
     return data
+
+def searchPostFilter(key: str, value):
+    data = posts.find({key: value})
+    result = []
+
+    for r in data:
+        result.append(r)
+
+    return json.loads(json_util.dumps(result))
 
 # Funcion para buscar un post por su titulo
 def searchPostTitle(title: str):

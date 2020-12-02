@@ -21,3 +21,4 @@ __pycache__/
 # Archivos no necesarios
 README.md
 LICENSE
+test/

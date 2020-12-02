@@ -7,6 +7,7 @@ class Courses(Resource):
     # Funcion para mostrar todos los cursos
     def get(self):
         courses = models.showCourses()
+        info = models.totalCourses()
         return courses
     
     # Funcion para agregar cursos
@@ -44,3 +45,8 @@ class CoursesId(Resource):
         models.deleteCourseId(id)
 
         return 201
+
+class CoursesFilter(Resource):
+    def get(self, key: str, value):
+        data = models.searchCourseFilter(key, value)
+        return data
