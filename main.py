@@ -1,5 +1,5 @@
 # Codigo Principal
-from flask import render_template
+from flask import render_template, jsonify
 from flask_restful import Api
 from dotenv import load_dotenv
 from config import auth, app
@@ -21,6 +21,14 @@ api = Api(app)
 def verifyToken(token: str):
     if token == os.getenv('TOKEN'):
         return token
+
+@app.errorhandler(404)
+def error404(e):
+    return jsonify({'error': {'Page not found, Error': 404}})
+
+@app.errorhandler(500)
+def error500():
+    return render_template('errors/500.html')
 
 @app.route('/')
 def home():
