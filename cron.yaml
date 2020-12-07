@@ -1,11 +1,16 @@
 cron:
-- description: "Iniciar Scraper de platzi"
-  url: /api/v1/start-job-platzi
-  schedule: every monday 00:00
-  retry_parameters:
-    min_backoff_seconds: 10
-    max_doublings: 30
+# - description: "Iniciar Scraper de platzi"
+#   url: /api/v1/start-job-platzi
+#   schedule: every monday 00:00
 
-- description: "Iniciar el filtrado y subida de datos"
-  url: /api/v1/filter-platzi-courses
-  schedule: every monday 06:00 
+# - description: "Iniciar el filtrado y subida de datos"
+#   url: /api/v1/filter-platzi-courses
+#   schedule: every monday 01:00 
+
+# - description: "Iniciar Scraper del blog"
+#   url: /api/v1/start-job-blog
+#   schedule: every 1 hours 
+
+# - description: "Iniciar el filtrado y subida de datos del blog a la base de datos"
+#   url: /api/v1/filter-blog 
+#   schedule: every 90 minutes

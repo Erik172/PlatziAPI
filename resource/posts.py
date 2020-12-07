@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from config import auth
-import models
+import db.posts as models
 
 class Posts(Resource):
     def get(self):

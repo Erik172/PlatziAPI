@@ -21,14 +21,45 @@
     
                 <div class="col-12  col-lg-5 mt-4">
                     <h4>{{ curso.course }}</h4>
+                    <small>ID: {{ curso['_id'] }}</small>
                     <p>{{ curso.description }}</p>
+                    {% if curso.project.title %}
+                        <div class="m-3">
+                            <small>Proyecto</small>
+                            <h5>{{ curso.project.title }}</h5>
+                            <p>{{ curso.project.description }}</p>
+                            <img class="img-fluid m-0 p-0" src="{{ curso.project.image }}" alt="Project">
+                        </div>
+
+                    {% else %}
+                        {% if curso['With this course you can'] %}
+                            <div class="m-3">
+                                <h5>Que Aprenderas</h5>
+                                <ul class="list-group list-group-flush">
+                                    {% for learn in curso['With this course you can'] %}
+                                        <li class="list-group-item">{{learn}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% else %}
+                            <div class="m-3">
+                                <h5>Comentarios</h5>
+                                <ul class="list-group list-group-flush">
+                                    {% for comentary in curso.comments %}
+                                        <li class="list-group-item">{{ comentary }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    
                     <h5>Los Profesores</h5>
                     <ul class="list-group list-group-flush">
                         {% for teacher in curso.teacher %}
                             <li class="list-group-item" >{{ teacher }}</li>
                         {% endfor %}
                     </ul>
-                    <a class="btn btn-outline-success mb-3 btn-block" href="{{ curso.url }}" target="_blank">ir al curso</a>  
+                    <a class="btn btn-outline-success mb-3 btn-block" rel="noopener" href="{{ curso.url }}" target="_blank">ir al curso</a>  
                 </div>
             {% endfor %}
         </div>
@@ -51,11 +82,200 @@
                         <div class="card-body">
                         <h5 class="card-title">{{ post.name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ post.author }} <span class="badge badge-primary">{{ post.date }}</span></h6>
+                        <small>ID: {{ post['_id'] }}</small>
                         <p class="card-text">{{ post.description }}</p>
-                        <a href="{{ post.link }}" class="card-link" target="_blank">Leer mas...</a>
+                        <a href="{{ post.link }}" class="card-link" rel="noopener" target="_blank">Leer mas...</a>
                         <!-- <a href="#" class="card-link">Another link</a> -->
                         </div>
                     </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block howDoesItWork %}
+    <div class="container">
+        <div class="row mt-3 mb-3">
+            <div class="col-12 text-center text-uppercase" id="howDoesItWork">
+                <small>Platzi API</small>
+                <h3>Como se usa?</h3>
+            </div>
+        </div>
+        <div>
+            <div class="row">   
+                <div class="col-12">
+                    <h4>Cursos</h4>
+                </div>
+
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert">
+                        <ion-icon name="alert-outline" style="font-size: 20px;"></ion-icon> Los cursos se actualizan cada semana
+                    </div>
+                </div>
+
+                <div class="col-12 m-0 m-md-3">
+                    <h5>Ver Todos los cursos</h5>
+                    <div class="m-0 m-md-2">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">GET</div>
+                            </div>
+                            <p class="form-control">/api/v1/courses</p>
+                        </div>
+                        <a class="btn btn-success" data-toggle="collapse" href="#outputCoursesAll" role="button" aria-expanded="false" aria-controls="outputCoursesAll">
+                            View output
+                        </a>
+                        {% include "components/code/coursesAll.html" %}
+                    </div>
+                </div>
+
+                <div class="col-12 m-0 m-md-3 mt-2">
+                    <h5>Ver un curso por su id</h5>
+                    <div class="input-group m-0  m-md-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">GET</div>
+                        </div>
+                        <p class="form-control">/api/v1/courses/<_id></p>
+                    </div>
+                    <h6 class="mt-3">Ejemplo</h6>
+                    <div class="m-0 m-md-2">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">GET</div>
+                            </div>
+                            <p class="form-control">/api/v1/courses/551</p>
+                        </div>
+                        <a class="btn btn-success" data-toggle="collapse" href="#outputCoursesId" role="button" aria-expanded="false" aria-controls="outputCoursesId">
+                            View output
+                        </a>
+                        {% include "components/code/coursesId.html" %}
+                    </div>
+                </div>
+
+                <div class="col-12 m-0 m-md-3 mt-2">
+                    <h5>Utilizar tus propios filtros</h5>
+                    <div class="input-group m-0  m-md-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">GET</div>
+                        </div>
+                        <p class="form-control">/api/v1/courses/< key >/< value ></p>
+                    </div>
+                    <h6 class="mt-3">Ejemplo</h6>
+                    <div class="m-0 m-md-2">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">GET</div>
+                            </div>
+                            <p class="form-control">/api/v1/courses/teacher/Freddy Vega</p>
+                        </div>
+                        <a class="btn btn-success" data-toggle="collapse" href="#outputCoursesFilter" role="button" aria-expanded="false" aria-controls="outputCoursesFilter">
+                            View output
+                        </a>
+                        {% include "components/code/coursesFilter.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4>Posts</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    <ion-icon name="alert-outline" style="font-size: 20px;"></ion-icon> Los posts se actualizan cada hora
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 m-0 m-md-3">
+                <h5>Ver todos los posts</h5>
+                <div class="ml-0 ml-md-2">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">GET</div>
+                        </div>
+                        <p class="form-control">/api/v1/posts</p>
+                    </div>
+                
+                    <a class="btn btn-success" data-toggle="collapse" href="#outputPostsAll" role="button" aria-expanded="false" aria-controls="outputPostsAll">
+                        View output
+                    </a>
+                    {% include "components/code/postsAll.html" %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 m-0 m-md-3">
+                <h5>Ver un post por su id</h5>
+                <div class="ml-0 ml-md-2">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">GET</div>
+                        </div>
+                        <p class="form-control">/api/v1/posts/< _id ></p>
+                    </div>
+                    <h6 class="mt-3">Ejemplo</h6>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">GET</div>
+                        </div>
+                        <p class="form-control">/api/v1/posts/0</p>
+                    </div>
+                
+                    <a class="btn btn-success" data-toggle="collapse" href="#outputPostsId" role="button" aria-expanded="false" aria-controls="outputPostsId">
+                        View output
+                    </a>
+                    {% include "components/code/postsId.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block cursosRecomendados %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12 text-uppercase mb-2 mt-3">
+                <h4 id="cursosRecomendados">Cursos Recomendados</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for course in recommendedCourse %}
+                <div class="col-12 col-md-4">
+                    <div class="card mt-3 mt-md-0">
+                        <figure class="text-center p-1">
+                            <img src="{{ course.badge }}" class=" card-img-top img-fluid" alt="{{ course.course }}" style="max-width: 100px;">
+                        </figure>
+                        <div class="card-body">
+                          <h5 class="card-title">{{ course.course }}</h5>
+                          <small>ID: {{ course._id }}</small>
+                          <p class="card-text">{{ course.description }}</p>
+                          <a href="{{ course.url }}" class="btn btn-success btn-block">Ir al curso</a>
+                          {% if course.project.title %}
+                                <a href="#project{{ course._id }}" class="btn btn-outline-success btn-block mt-2" type="button" data-toggle="collapse" data-target="#project{{ course._id }}" aria-expanded="false" aria-controls="project{{ course._id }}">
+                                    Ver Proyecto
+                                </a>
+                                <div class="collapse m-2 mt-1" id="project{{ course._id }}">
+                                    <h4>{{ course.project.title }}</h4>
+                                    <p>{{ course.project.description }}</p>
+                                    <figure>
+                                        <img class="img-fluid" src="{{ course.project.image }}" alt="project">
+                                    </figure>
+                                </div>
+                          {% endif %}
+                          
+                        </div>
+                      </div>
                 </div>
             {% endfor %}
         </div>

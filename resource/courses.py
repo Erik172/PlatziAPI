@@ -1,7 +1,8 @@
 from flask import request
 from flask_restful import Resource
 from config import auth
-import models
+
+import db.courses as models
 
 class Courses(Resource):
     # Funcion para mostrar todos los cursos

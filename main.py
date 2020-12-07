@@ -1,17 +1,17 @@
 # Codigo Principal
-from flask import render_template, request, jsonify
-from flask import json
+from flask import render_template
 from flask_restful import Api
 from dotenv import load_dotenv
-from scrapinghub.legacy import Job
 from config import auth, app
-import models
 import random
-import ETL
 import os
 
 from resource.courses import Courses, CoursesId, CoursesFilter
 from resource.posts import Posts, PostsId, PostsFilter
+
+# db
+import db.courses as modelsCourses
+import db.posts as modelsPosts
 
 load_dotenv()
 
@@ -28,39 +28,23 @@ def home():
     postsList = []
 
     for _ in range(0, 4):
-        cursosList.append(models.searchCourseId(random.randint(0, models.totalCourses())))
+        cursosList.append(modelsCourses.searchCourseId(random.randint(0, modelsCourses.totalCourses())))
 
     for _ in range(0, 3):
-        postsList.append(models.searchPostId(random.randint(0, models.totalPosts())))
+        postsList.append(modelsPosts.searchPostId(random.randint(0, 10)))
+
+    recommendedCourse = [
+        modelsCourses.searchCourseId(356),
+        modelsCourses.searchCourseId(347),
+        modelsCourses.searchCourseId(551)
+    ]
 
     context = {
         'cursos': cursosList,
+        'recommendedCourse': recommendedCourse,
         'posts': postsList
     }
     return render_template('index.html', **context)
-
-@auth.login_required
-@app.route('/api/v1/start-job-platzi')
-def startScrpingPlatzi():
-    try:
-        ETL.initSpiderPlatzi()
-        return "Job Iniciado"
-    except:
-        return 'El trabajo Ya Inicio'
-
-@auth.login_required
-@app.route('/api/v1/filter-platzi-courses')
-def filterDataCourses():
-    with open('jobs/platzi.log') as fr:
-        file = fr.read()
-        ETL.dataSpiderPlatziFilterCourses(int(file))
-        file = int(file) + 1
-        fr.close()
-        with open('jobs/platzi.log', 'w')as f:
-            f.write(str(file))
-            f.close()
-
-            return "Listo"
 
 api.add_resource(Courses, '/api/v1/courses')
 api.add_resource(CoursesId, '/api/v1/courses/<int:id>')
