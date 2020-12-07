@@ -260,7 +260,7 @@
                           <h5 class="card-title">{{ course.course }}</h5>
                           <small>ID: {{ course._id }}</small>
                           <p class="card-text">{{ course.description }}</p>
-                          <a href="{{ course.url }}" class="btn btn-success btn-block">Ir al curso</a>
+                          <a href="{{ course.url }}" target="_blank" class="btn btn-success btn-block">Ir al curso</a>
                           {% if course.project.title %}
                                 <a href="#project{{ course._id }}" class="btn btn-outline-success btn-block mt-2" type="button" data-toggle="collapse" data-target="#project{{ course._id }}" aria-expanded="false" aria-controls="project{{ course._id }}">
                                     Ver Proyecto
