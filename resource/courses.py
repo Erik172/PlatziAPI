@@ -36,7 +36,11 @@ class CoursesId(Resource):
     @auth.login_required
     def put(self, id: int):
         data = request.get_json(force=True)
-        models.modifiedCourseId(id, data)
+        if data['_id']:
+            models.remplaceCourseId(id, data)
+        
+        else:
+            models.updateCourseId(id, data)
 
         return data, 201
 

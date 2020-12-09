@@ -7,10 +7,12 @@ import random
 import os
 
 from resource.courses import Courses, CoursesId, CoursesFilter
+from resource.learningPaths import LearningPath, LearningPathId, LearningPathFilter
 from resource.posts import Posts, PostsId, PostsFilter
 
 # db
 import db.courses as modelsCourses
+import db.learningPaths as modelsLearningPaths
 import db.posts as modelsPosts
 
 load_dotenv()
@@ -33,6 +35,7 @@ def error500():
 @app.route('/')
 def home():
     cursosList = []
+    learningPathList = []
     postsList = []
 
     for _ in range(0, 4):
@@ -41,14 +44,18 @@ def home():
     for _ in range(0, 3):
         postsList.append(modelsPosts.searchPostId(random.randint(0, 10)))
 
+    for _ in range(0, 4):
+        learningPathList.append(modelsLearningPaths.searchLearningPathId(random.randint(0, modelsLearningPaths.totalLearningPaths())))
+
     recommendedCourse = [
-        modelsCourses.searchCourseId(356),
-        modelsCourses.searchCourseId(347),
-        modelsCourses.searchCourseId(551)
+        modelsCourses.searchCourseId(355),
+        modelsCourses.searchCourseId(563),
+        modelsCourses.searchCourseId(352)
     ]
 
     context = {
         'cursos': cursosList,
+        'learningPaths': learningPathList,
         'recommendedCourse': recommendedCourse,
         'posts': postsList
     }
@@ -57,6 +64,10 @@ def home():
 api.add_resource(Courses, '/api/v1/courses')
 api.add_resource(CoursesId, '/api/v1/courses/<int:id>')
 api.add_resource(CoursesFilter, '/api/v1/courses/<string:key>/<string:value>')
+
+api.add_resource(LearningPath, '/api/v1/learningPaths')
+api.add_resource(LearningPathId, '/api/v1/learningPaths/<int:id>')
+api.add_resource(LearningPathFilter, '/api/v1/learningPaths/<string:key>/<string:value>')
 
 api.add_resource(Posts, '/api/v1/posts')
 api.add_resource(PostsId, '/api/v1/posts/<int:id>')

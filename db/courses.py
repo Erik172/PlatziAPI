@@ -25,6 +25,13 @@ def deleteAllCourses():
 def searchCourseId(id: int):
     data = courses.find_one({"_id": id})
     return data
+ 
+def updateCourseId(id: int, data: dict):
+    courses.find_one_and_update({'_id': id}, data)
+
+# Funcion para remplasar un curso por su id
+def remplaceCourseId(id: int, data: dict):
+    courses.find_one_and_replace({'_id': id}, data)
 
 def searchCourseFilter(key: str, value):
     data = courses.find({key: value})
@@ -42,10 +49,6 @@ def searchCourseName(name: str):
 
     else:
         return False
-
-# Funcion para modificar un curso por su _id
-def modifiedCourseId(id: int, data: dict):
-    courses.find_and_modify({"_id": id}, data)
 
 # Funcion para eliminar un curso por su _id
 def deleteCourseId(id: int):
