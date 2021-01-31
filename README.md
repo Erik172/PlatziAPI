@@ -1,5 +1,5 @@
 # Platzi API
-
+![PlatziAPI](/static/img/logo.webp)
 _API Rest del sitio web de [Platzi](https://platzi.com)_
 
 ## Comenzando 🚀
